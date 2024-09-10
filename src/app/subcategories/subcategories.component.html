@@ -38,15 +38,15 @@
 
 <div class="container m-auto mt-5 w-25">
   <ul class="pagination">
-    @if(pagination.prev){<li (click)="changePage(pagination.prev)" class="page-item"><button
+    @if(pagination?.prev){<li (click)="changePage(pagination.prev)" class="page-item"><button
         class="page-link">Previous</button></li>}
-    @if(pagination.currentPage!==1)
+    @if(pagination?.currentPage!==1)
     {<li (click)="changePage(1)" class="page-item"><button class="page-link">1</button></li>}
-    <li class="page-item"><button class="page-link">{{pagination.currentPage}}</button></li>
-    @if(pagination.currentPage!==pagination.totalPages)
+    <li class="page-item"><button class="page-link">{{pagination?.currentPage}}</button></li>
+    @if(pagination?.currentPage!==pagination?.totalPages)
     {<li (click)="changePage(pagination.totalPages!)" class="page-item"><button
         class="page-link">{{pagination.totalPages}}</button></li>}
-    @if(pagination.next){<li (click)="changePage(pagination.next)" class="page-item"><button
+    @if(pagination?.next){<li (click)="changePage(pagination.next)" class="page-item"><button
         class="page-link">Next</button></li>}
   </ul>
 </div>

@@ -26,11 +26,9 @@ export class UpdateCategoryComponent implements OnInit, OnDestroy {
     this.subscription = this._CategoriesService.getCategory(categoryId).subscribe({
       next: (res) => {
         this.category = res.data
-        console.log(this.category);
       },
       error: (err) => {
         this.categoryError = err.error.message
-        console.log(this.category);
       }
     })
   }

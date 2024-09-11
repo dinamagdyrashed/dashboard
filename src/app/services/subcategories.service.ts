@@ -9,9 +9,15 @@ import { Observable } from 'rxjs';
 export class SubcategoriesService {
   private apiUrl: string = '';
   private routeName: string = '';
+  private categoriesRoute: string = '';
   constructor(private _HttpClient: HttpClient, private _GlobalService: GlobalService) {
     this.apiUrl = this._GlobalService.apiHostName;
     this.routeName = this._GlobalService.subcategoriesRoute;
+    this.categoriesRoute = this._GlobalService.categoriesRoute;
+  }
+
+  getSpecificSubcategories(categoryId: string, limit: number = 200, sort: string = 'name'): Observable<any> {
+    return this._HttpClient.get(`${this.apiUrl}${this.categoriesRoute}/${categoryId}/subcategories?limit=${limit}&sort=${sort}`)
   }
 
   getSubcategories(limit: number = 50, page: number = 1, sort: string = '-createdAt', search: string): Observable<any> {

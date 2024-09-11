@@ -23,7 +23,8 @@
         <td>{{category?._id|slice:-4}}</td>
         <td>{{category?.name}}</td>
         <td>
-          <a [routerLink]="['/categories',category._id]" class="btn btn-primary btn-sm my-3 rounded-3 mx-3">Update</a>
+          <a [routerLink]="['/categories',category._id,'update']"
+            class="btn btn-primary btn-sm my-3 rounded-3 mx-3">Update</a>
           <button (click)="deleteCategory(category._id)" class="btn btn-danger btn-sm rounded-3">Delete</button>
         </td>
       </tr>

@@ -12,7 +12,6 @@ import { Router, RouterLink } from '@angular/router';
   styleUrl: './add-category.component.scss'
 })
 export class AddCategoryComponent implements OnInit {
-  category: any = {};
   categoryError: string = '';
   categoryForm = new FormGroup({
     name: new FormControl(null, [Validators.required]),

@@ -25,7 +25,7 @@
         <td>{{subcategory?.name}}</td>
         <td>{{subcategory?.category?.name}}</td>
         <td>
-          <a [routerLink]="['/subcategories',subcategory._id]"
+          <a [routerLink]="['/subcategories',subcategory._id,'update']"
             class="btn btn-primary btn-sm my-3 rounded-3 mx-3">Update</a>
           <button (click)="deleteSubcategory(subcategory._id)" class="btn btn-danger btn-sm rounded-3">Delete</button>
         </td>

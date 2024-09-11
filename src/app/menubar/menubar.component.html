@@ -19,12 +19,24 @@
         <a class="nav-link" aria-current="page" routerLink='/products' routerLinkActive="active"
           ariaCurrentWhenActive="page">Products</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" aria-current="page" routerLink='/coupons' routerLinkActive="active"
+          ariaCurrentWhenActive="page">Coupons</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" aria-current="page" routerLink='/orders' routerLinkActive="active"
+          ariaCurrentWhenActive="page">Orders</a>
+      </li>
       @if(user.role==='manager'){
       <li class="nav-item">
         <a class="nav-link" aria-current="page" routerLink='/users' routerLinkActive="active"
           ariaCurrentWhenActive="page">Users</a>
       </li>
       }
+      <li class="nav-item">
+        <a class="nav-link" aria-current="page" routerLink='/profile' routerLinkActive="active"
+          ariaCurrentWhenActive="page">Profile</a>
+      </li>
       <li class="nav-item">
         <button (click)="logout()" class="nav-link" aria-current="page" routerLinkActive="active"
           ariaCurrentWhenActive="page">logout</button>

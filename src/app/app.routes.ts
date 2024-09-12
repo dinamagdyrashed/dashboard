@@ -48,7 +48,15 @@ export const routes: Routes = [
       { path: '', title: 'orders', loadComponent: () => import('./orders/orders.component').then(m => m.OrdersComponent) },
     ]
   },
-  { path: 'users', title: 'Users', canActivate: [authGuard, rolesGuard], loadComponent: () => import('./users/users.component').then(m => m.UsersComponent) },
+  {
+    path: 'users', canActivate: [authGuard, rolesGuard],
+    children: [
+      { path: '', title: 'users', loadComponent: () => import('./users/users.component').then(m => m.UsersComponent) },
+      { path: 'create', title: 'create user', loadComponent: () => import('./add-user/add-user.component').then(m => m.AddUserComponent) },
+      { path: ':id', title: 'user details', loadComponent: () => import('./user-details/user-details.component').then(m => m.UserDetailsComponent) },
+    ]
+  },
+  { path: 'profile', title: 'profile', loadComponent: () => import('./profile/profile.component').then(m => m.ProfileComponent) },
   { path: 'forgetPassword', title: 'forget password', loadComponent: () => import('./forget-password/forget-password.component').then(m => m.ForgetPasswordComponent) },
   { path: '**', title: '404 Not Found', component: NotFoundComponent },
 

@@ -1,7 +1,11 @@
 <div class="p-3 m-auto">
-  <h2 class="text-center my-5">All Orders</h2>
+  <h2 class="text-center my-5 text-3xl font-bold">All Orders</h2>
   <hr class="my-3">
-  <div class="d-flex justify-content-between">
+  @if (loading) {
+  <div class="flex items-center justify-center">
+    <div class="w-16 h-16 border-4 border-blue-500 border-dashed rounded-full animate-spin"></div>
+  </div>
+  }@else {<div class="d-flex justify-content-between">
     <input (change)="searchData(searchInput.value)" #searchInput class="form-control me-2 w-25" type="search"
       placeholder="Search" aria-label="Search">
   </div>
@@ -54,7 +58,8 @@
       }
       @empty { <h1>empty</h1> }
     </tbody>
-  </table>
+  </table>}
+
 </div>
 
 <div class="container m-auto mt-5 w-25">

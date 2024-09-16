@@ -11,7 +11,7 @@ import { SubcategoriesService } from '../services/subcategories.service';
   standalone: true,
   imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './add-product.component.html',
-  styleUrl: './add-product.component.scss'
+  styleUrl: './add-product.component.scss',
 })
 export class AddProductComponent implements OnInit, OnDestroy {
   categoriesSubscription: any;
@@ -26,36 +26,51 @@ export class AddProductComponent implements OnInit, OnDestroy {
   getSubcategory: string = '';
   productCover: any;
   productImages: any[] = [];
+  loading: boolean = false;
   setCover(event: any) {
-    const cover = event.target.files[0]
-    if (cover) { this.productCover = cover };
+    const cover = event.target.files[0];
+    if (cover) {
+      this.productCover = cover;
+    }
   }
   setImages(event: any) {
     const images = event.target.files;
-    if (images) { this.productImages = images };
+    if (images) {
+      this.productImages = images;
+    }
   }
-  constructor(private _AuthService: AuthService, private _ProductsService: ProductsService, private _CategoriesService: CategoriesService,
-    private _SubcategoriesService: SubcategoriesService, private _Router: Router
-  ) { }
+  constructor(
+    private _AuthService: AuthService,
+    private _ProductsService: ProductsService,
+    private _CategoriesService: CategoriesService,
+    private _SubcategoriesService: SubcategoriesService,
+    private _Router: Router
+  ) {}
 
   loadCategories() {
-    this.categoriesSubscription = this._CategoriesService.getCategories(200, 1, 'name', '').subscribe({
-      next: (res) => {
-        this.categories = res.data;
-      }, error: (err) => { }
-    })
+    this.categoriesSubscription = this._CategoriesService
+      .getCategories(200, 1, 'name', '')
+      .subscribe({
+        next: (res) => {
+          this.categories = res.data;
+        },
+        error: (err) => {},
+      });
   }
 
   loadSubcategories(categoryId: string) {
     this.getCategory = categoryId;
-    this.subcategoriesSubscription = this._SubcategoriesService.getSpecificSubcategories(categoryId, 200, 'name').subscribe({
-      next: (res) => {
-        this.subcategories = res.data;
-      }
-    })
+    this.subcategoriesSubscription = this._SubcategoriesService
+      .getSpecificSubcategories(categoryId, 200, 'name')
+      .subscribe({
+        next: (res) => {
+          this.subcategories = res.data;
+        },
+      });
   }
 
   createProduct() {
+    this.loading = true;
     const formData = new FormData();
     formData.append('name', this.getName);
     formData.append('description', this.getDescription);
@@ -65,7 +80,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
     formData.append('quantity', this.getQuantity);
     if (this.productCover) {
       formData.append('cover', this.productCover);
-    };
+    }
     // if (this.productImages) {
     //   formData.append('images', this.productImages);
     // };
@@ -77,14 +92,17 @@ export class AddProductComponent implements OnInit, OnDestroy {
     }
     this._ProductsService.createProduct(formData).subscribe({
       next: (res) => {
-        alert('product added successfully');
+        this.loading = false;
         this._Router.navigate(['/products']);
-      }
-    })
+      },
+      error: (err) => {
+        console.log('error is', err);
+      },
+    });
   }
 
   ngOnInit(): void {
-    this._AuthService.checkToken()
+    this._AuthService.checkToken();
     this.loadCategories();
   }
 

@@ -1,8 +1,14 @@
 <div class="w-75 m-auto">
-  <h2 class="text-center my-5">All Products</h2>
+  <h1 class="text-center my-5 text-3xl font-bold">All Products</h1>
   <hr class="my-3">
+  @if (loading) {
+  <div class="flex items-center justify-center">
+    <div class="w-16 h-16 border-4 border-blue-500 border-dashed rounded-full animate-spin"></div>
+  </div>
+
+  }@else {
   <div class="d-flex justify-content-between">
-    <a class="btn btn-primary" routerLink="create">Create Product</a>
+    <a class="btn btn-primary" routerLink="/create">Create Product</a>
     <input (change)="searchData(searchInput.value)" #searchInput class="form-control me-2 w-25" type="search"
       placeholder="Search" aria-label="Search">
   </div>
@@ -26,25 +32,24 @@
       <tr class="m-5 border-bottom">
         <td>{{$index + 1}}</td>
         <td>{{product?._id|slice:-4}}</td>
-        <td><img class="mx-3" width="50px" [src]="productImage+product?.cover"
-            [alt]="product?.name">{{product?.name}}</td>
+        <td><img class="mx-3" width="50px" [src]="productImage+product?.cover" [alt]="product?.name">{{product?.name}}
+        </td>
         <td>{{product?.category?.name}}</td>
         <td>{{product?.subcategory?.name}}</td>
         <td>{{product?.price|currency}}</td>
         <td>{{product?.quantity}}</td>
         <td>{{product?.sold}}</td>
         <td>
-          <a [routerLink]="['/products',product._id]" class="btn btn-primary btn-sm my-3 rounded-3 mx-3">More
-            Details</a>
-          <a [routerLink]="['/products',product._id,'update']"
-            class="btn btn-primary btn-sm my-3 rounded-3 mx-3">Update</a>
-          <button (click)="deleteProduct(product._id)" class="btn btn-danger btn-sm rounded-3">Delete</button>
+
+          <button (click)="openModal(product._id)" class="btn btn-danger btn-sm rounded-3">Delete</button>
         </td>
       </tr>
       }
       @empty { <h1>empty</h1> }
     </tbody>
   </table>
+  }
+
 </div>
 
 <div class="container m-auto mt-5 w-25">
@@ -60,4 +65,17 @@
     @if(pagination.next){<li (click)="changePage(pagination.next)" class="page-item"><button
         class="page-link">Next</button></li>}
   </ul>
+  @if (isModalVisible) {
+  <div class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
+    <div class="bg-violet-950  p-6 rounded-lg shadow-lg flex justify-center flex-col text-white items-center">
+
+      <h2 class="text-2xl font-bold mb-4">Delete Product</h2>
+      <p>Are you sure you want to delete this product.</p>
+      <div class="m-3">
+        <button class="btn btn-primary mr-3" (click)="deleteProduct()">Delete</button>
+        <button class="btn btn-danger ml-3" (click)="closeModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+  }
 </div>

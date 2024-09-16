@@ -1,4 +1,49 @@
-<div class="collapse" id="navbarToggleExternalContent">
+<header class="border-b border-gray-200 py-4">
+  <div class="container mx-auto flex justify-between items-center">
+    <div class="font-bold text-lg">
+      Dashboard
+    </div>
+
+    <button class="md:hidden absolute top-6 right-10 z-30 text-black text-2xl" type="button" (click)="toggleNavbar()">
+      <i class="bi bi-list"></i>
+    </button>
+
+    <nav id="navbarNav"
+      class="md:flex  max-md:absolute max-md:bg-white max-md:shadow-md max-md:w-44 max-md:p-3 max-md:top-14 z-20 right-10 max-md:flex-col md:items-center  md:space-x-6 text-sm"
+      [ngClass]="{'hidden': !isNavbarOpen, 'block': isNavbarOpen, 'md:flex':true}">
+      <a routerLink="/home"
+        class="text-black max-md:block transition-all ease-linear max-md:text-xl max-md:mb-2 duration-500 no-underline relative before:content-[''] before:absolute before:w-0 before:h-0.5 before:bg-black before:bottom-0 before:left-0 before:transition-all before:duration-300 hover:before:w-full">
+        Home
+      </a>
+      <a routerLink="/products"
+        class="text-black max-md:block transition-all ease-linear max-md:text-xl max-md:mb-2 duration-500 no-underline relative before:content-[''] before:absolute before:w-0 before:h-0.5 before:bg-black before:bottom-0 before:left-0 before:transition-all before:duration-300 hover:before:w-full">
+        Products
+      </a>
+      <a routerLink="/orders"
+        class="text-black max-md:block transition-all ease-linear max-md:text-xl max-md:mb-2 duration-500 no-underline relative before:content-[''] before:absolute before:w-0 before:h-0.5 before:bg-black before:bottom-0 before:left-0 before:transition-all before:duration-300 hover:before:w-full">
+        Orders
+      </a>
+      <a routerLink="signup" (click)="logout()"
+        class="text-black max-md:block transition-all ease-linear max-md:text-xl max-md:mb-2 duration-500 no-underline relative before:content-[''] before:absolute before:w-0 before:h-0.5 before:bg-black before:bottom-0 before:left-0 before:transition-all before:duration-300 hover:before:w-full">
+        Logout
+      </a>
+    </nav>
+
+    <div class="flex items-center space-x-4 max-md:hidden ">
+      <div class="relative">
+        <input type="text" placeholder="What are you looking for?"
+          class="border border-gray-300 rounded-full pl-4 pr-10 py-2 text-sm w-64" />
+        <button class="absolute top-0 right-0 h-full px-4">
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
+    </div>
+
+
+  </div>
+</header>
+
+<!-- <div class="collapse" id="navbarToggleExternalContent">
   <div class="bg-dark p-4">
     <h5 class="text-white h4">Menu Bar</h5>
     <span class="text-muted"></span>
@@ -51,4 +96,4 @@
       <span class="navbar-toggler-icon"></span>
     </button>
   </div>
-</nav>
+</nav> -->

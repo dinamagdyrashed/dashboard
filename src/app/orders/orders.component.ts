@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './orders.component.html',
-  styleUrl: './orders.component.scss'
+  styleUrl: './orders.component.scss',
 })
 export class OrdersComponent implements OnInit, OnDestroy {
   subscription: any;
@@ -18,33 +18,47 @@ export class OrdersComponent implements OnInit, OnDestroy {
   pagination: any = {};
   page: number = 1;
   search: string = '';
-  constructor(private _AuthService: AuthService, private _OrdersService: OrdersService, private _ProductsService: ProductsService) { }
+  loading: boolean = false;
+  constructor(
+    private _AuthService: AuthService,
+    private _OrdersService: OrdersService,
+    private _ProductsService: ProductsService
+  ) {}
 
   loadOrders() {
-    this.subscription = this._OrdersService.getOrders(50, this.page, '-createdAt', this.search).subscribe({
-      next: (res) => {
-        this.orders = res.data;
-        this.pagination = res.pagination;
-      }, error: (err) => { }
-    })
+    this.loading = true;
+    this.subscription = this._OrdersService
+      .getOrders(50, this.page, '-createdAt', this.search)
+      .subscribe({
+        next: (res) => {
+          this.orders = res.data;
+          this.loading = false;
+          this.pagination = res.pagination;
+        },
+        error: (err) => {},
+      });
   }
 
   updateDelivered(orderId: string) {
+    this.loading = true;
     this._OrdersService.updateDeliveredOrder(orderId).subscribe({
       next: (res) => {
         this.loadOrders();
-        alert('Order is delivered')
-      }, error: (err) => { }
-    })
+        this.loading = false;
+      },
+      error: (err) => {},
+    });
   }
 
   updatePaid(orderId: string) {
+    this.loading = true;
     this._OrdersService.updatePaidOrder(orderId).subscribe({
       next: (res) => {
         this.loadOrders();
-        alert('Order is Paid')
-      }, error: (err) => { }
-    })
+        this.loading = false;
+      },
+      error: (err) => {},
+    });
   }
 
   changePage(page: number) {
@@ -63,5 +77,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
     this.loadOrders();
   }
 
-  ngOnDestroy(): void { this.subscription.unsubscribe() };
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 }

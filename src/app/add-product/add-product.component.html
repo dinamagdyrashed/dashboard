@@ -1,19 +1,9 @@
-<br><br><br>
 <div class="w-50 mt-5 m-auto shadow p-4">
-  <h1 class="text-center">Add Product</h1>
+  <h1 class="text-center text-3xl font-bold">Add Product</h1>
   <div>
     <div class="p-3">
       <input class="form-control" type="name" (change)="this.getName=name.value" #name placeholder="product name">
-      <!-- @if(categoryForm.get('name')?.errors!==null&&categoryForm.get('name')?.touched){
-                  <div class="p-0 mt-3">
-                    @if(categoryForm.get('name')?.errors?.['required']){<p class="text-danger"> category name Required</p>}
-                  </div>
-                  } -->
-      <!-- @if(categoryError!==''){
-                  <div class="text-danger mt-3">
-                    <p>{{categoryError}}</p>
-                  </div>
-                  } -->
+
     </div>
     <div class="form-floating p-3">
       <textarea class="form-control" (change)="this.getDescription=description.value" #description
@@ -58,6 +48,11 @@
       <button (click)="createProduct()" class="btn btn-primary mx-3 ">Create</button>
       <a routerLink="/products" class="btn btn-danger">Cancel</a>
     </div>
+    @if (loading) {
+    <div class="flex items-center justify-center">
+      <div class="w-16 h-16 border-4 border-blue-500 border-dashed rounded-full animate-spin"></div>
+    </div>
+    }
   </div>
 </div>
 <br><br><br>

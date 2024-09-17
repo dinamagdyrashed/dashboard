@@ -49,7 +49,7 @@
         <td>{{order?.totalPrice|currency}}</td>
         <td>
           <button [disabled]="order.isDelivered" (click)="updateDelivered(order._id)"
-            class="btn btn-primary mx-3 btn-sm rounded-3">Deliver
+            class="btn btn-primary mx-3 max-sm:my-2 btn-sm rounded-3">Deliver
             Order</button>
           <button [disabled]="order.isPaid" (click)="updatePaid(order._id)" class="btn btn-primary btn-sm rounded-3">Pay
             Order</button>
